@@ -1,194 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>UrbanShop</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech & Streetwear</title>
 
-    body {
-      background: linear-gradient(135deg, #0e0e11, #151a22);
-      color: #f5f5f5;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
-    header {
-      padding: 24px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-    header h1 {
-      letter-spacing: 2px;
-      font-weight: 700;
-    }
+body{
+background:#0e0e0e;
+color:white;
+}
 
-    header span {
-      color: #3b82f6;
-    }
+/* HEADER */
+header{
+background:linear-gradient(90deg,#000,#111,#000);
+padding:25px;
+text-align:center;
+font-size:30px;
+font-weight:800;
+letter-spacing:2px;
+border-bottom:1px solid #222;
+}
 
-    .cart {
-      cursor: pointer;
-      font-size: 14px;
-      opacity: 0.85;
-    }
+/* PRODUCTS GRID */
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+padding:40px;
+}
 
-    main {
-      padding: 60px 48px;
-    }
+.card{
+background:#141414;
+border-radius:18px;
+overflow:hidden;
+transition:.4s ease;
+border:1px solid #1f1f1f;
+}
 
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 32px;
-    }
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 20px 40px rgba(0,255,150,.2);
+}
 
-    .card {
-      background: #0f141c;
-      border-radius: 18px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+.card img{
+width:100%;
+height:260px;
+object-fit:cover;
+}
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-    }
+.card-content{
+padding:20px;
+}
 
-    .card img {
-      width: 100%;
-      height: 180px;
-      object-fit: contain;
-      margin-bottom: 20px;
-    }
+.card h2{
+font-size:20px;
+margin-bottom:8px;
+}
 
-    .card h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
+.price{
+color:#00ff99;
+font-size:22px;
+font-weight:600;
+margin-bottom:5px;
+}
 
-    .price {
-      color: #3b82f6;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
+.stock{
+font-size:13px;
+color:#888;
+margin-bottom:12px;
+}
 
-    .actions {
-      display: flex;
-      gap: 12px;
-    }
+/* SIZE DROPDOWN */
+select{
+width:100%;
+padding:8px;
+border-radius:8px;
+background:#222;
+color:white;
+border:1px solid #333;
+margin-bottom:10px;
+}
 
-    button {
-      flex: 1;
-      padding: 12px;
-      border-radius: 999px;
-      border: none;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.25s ease;
-    }
+/* QUANTITY */
+.quantity{
+display:flex;
+align-items:center;
+margin-bottom:10px;
+}
 
-    .buy {
-      background: #3b82f6;
-      color: #fff;
-    }
+.quantity button{
+width:30px;
+height:30px;
+border:none;
+background:#222;
+color:white;
+cursor:pointer;
+font-size:18px;
+}
 
-    .buy:hover {
-      background: #2563eb;
-    }
+.quantity span{
+margin:0 10px;
+}
 
-    .cart-btn {
-      background: transparent;
-      color: #3b82f6;
-      border: 1px solid #3b82f6;
-    }
+/* BUTTON */
+button.add{
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+background:linear-gradient(90deg,#00ff99,#00cc66);
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
 
-    .cart-btn:hover {
-      background: rgba(59,130,246,0.1);
-    }
+button.add:hover{
+opacity:.8;
+}
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      opacity: 0.5;
-      font-size: 13px;
-    }
-  </style>
+/* CART */
+.cart{
+background:#111;
+margin:30px;
+padding:25px;
+border-radius:20px;
+border:1px solid #222;
+}
+
+.cart h2{
+margin-bottom:15px;
+}
+
+.cart ul{
+list-style:none;
+margin-bottom:15px;
+}
+
+.cart li{
+padding:8px 0;
+border-bottom:1px solid #222;
+font-size:14px;
+}
+
+.total{
+font-size:20px;
+font-weight:600;
+color:#00ff99;
+}
+
+/* CHECKOUT */
+.checkout{
+margin:30px;
+padding:25px;
+background:#111;
+border-radius:20px;
+border:1px solid #222;
+}
+
+.checkout input{
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:10px;
+border:1px solid #333;
+background:#1a1a1a;
+color:white;
+}
+
+.checkout button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:12px;
+background:linear-gradient(90deg,#00ff99,#00cc66);
+font-weight:600;
+cursor:pointer;
+}
+
+footer{
+text-align:center;
+padding:20px;
+color:#777;
+font-size:14px;
+border-top:1px solid #222;
+margin-top:30px;
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <h1>Urban<span>Shop</span></h1>
-    <div class="cart" id="cartCount">Cart (0)</div>
-  </header>
 
-  <main>
-    <section class="products">
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200?text=AirPods" alt="AirPods">
-        <h3>AirPods</h3>
-        <div class="price">$40</div>
-        <div class="actions">
-          <button class="buy" onclick="buyNow('AirPods')">Buy Now</button>
-          <button class="cart-btn" onclick="addToCart('AirPods')">Add to Cart</button>
-        </div>
-      </div>
+<header>TECH & STREETWEAR</header>
 
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200?text=AirPods+Max" alt="AirPods Max">
-        <h3>AirPods Max</h3>
-        <div class="price">$250</div>
-        <div class="actions">
-          <button class="buy" onclick="buyNow('AirPods Max')">Buy Now</button>
-          <button class="cart-btn" onclick="addToCart('AirPods Max')">Add to Cart</button>
-        </div>
-      </div>
+<section class="products">
 
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200?text=Essentials+Hoodie" alt="Essentials Hoodie">
-        <h3>Essentials Hoodie</h3>
-        <div class="price">$35</div>
-        <div class="actions">
-          <button class="buy" onclick="buyNow('Essentials Hoodie')">Buy Now</button>
-          <button class="cart-btn" onclick="addToCart('Essentials Hoodie')">Add to Cart</button>
-        </div>
-      </div>
+<div class="card">
+<img src="https://i.imgur.com/8Qf6F7Y.png">
+<div class="card-content">
+<h2>AirPods</h2>
+<div class="price">$40</div>
+<div class="stock">Premium Sound • Wireless</div>
 
-      <div class="card">
-        <img src="https://via.placeholder.com/300x200?text=Spider+Hoodie" alt="Spider Hoodie">
-        <h3>Spider Hoodie</h3>
-        <div class="price">$70</div>
-        <div class="actions">
-          <button class="buy" onclick="buyNow('Spider Hoodie')">Buy Now</button>
-          <button class="cart-btn" onclick="addToCart('Spider Hoodie')">Add to Cart</button>
-        </div>
-      </div>
-    </section>
-  </main>
+<div class="quantity">
+<button onclick="changeQty('airpods',-1)">-</button>
+<span id="qty-airpods">1</span>
+<button onclick="changeQty('airpods',1)">+</button>
+</div>
 
-  <footer>
-    © 2026 UrbanShop. All rights reserved.
-  </footer>
+<button class="add" onclick="addToCart('AirPods',40,'qty-airpods')">Add to Cart</button>
+</div>
+</div>
 
-  <script>
-    let cart = [];
+<div class="card">
+<img src="https://i.imgur.com/3ZQ3Z9O.png">
+<div class="card-content">
+<h2>AirPods Max</h2>
+<div class="price">$250</div>
+<div class="stock">Luxury Audio Experience</div>
 
-    function addToCart(item) {
-      cart.push(item);
-      document.getElementById('cartCount').innerText = `Cart (${cart.length})`;
-      alert(item + ' added to cart');
-    }
+<div class="quantity">
+<button onclick="changeQty('max',-1)">-</button>
+<span id="qty-max">1</span>
+<button onclick="changeQty('max',1)">+</button>
+</div>
 
-    function buyNow(item) {
-      alert('Proceeding to checkout for ' + item);
-    }
-  </script>
+<button class="add" onclick="addToCart('AirPods Max',250,'qty-max')">Add to Cart</button>
+</div>
+</div>
+
+</section>
+
+<div class="cart">
+<h2>🛒 Cart</h2>
+<ul id="cart-items"></ul>
+<div class="total">Total: $<span id="total">0</span></div>
+</div>
+
+<div class="checkout">
+<h2>Checkout</h2>
+<input id="name" placeholder="Full Name">
+<input id="address" placeholder="Shipping Address">
+<input id="email" placeholder="Email">
+<button onclick="checkout()">Proceed to Payment</button>
+</div>
+
+<footer>
+Limited Stock • Secure Checkout • Fast Shipping
+</footer>
+
+<script>
+let total = 0;
+
+function changeQty(id,change){
+let el = document.getElementById("qty-"+id);
+let qty = parseInt(el.innerText);
+qty += change;
+if(qty < 1) qty = 1;
+el.innerText = qty;
+}
+
+function addToCart(item,price,qtyId){
+let qty = parseInt(document.getElementById(qtyId).innerText);
+let subtotal = price * qty;
+total += subtotal;
+
+document.getElementById("cart-items").innerHTML += 
+"<li>"+item+" x"+qty+" - $"+subtotal+"</li>";
+
+document.getElementById("total").innerText = total;
+}
+
+function checkout(){
+let name = document.getElementById("name").value;
+let address = document.getElementById("address").value;
+let email = document.getElementById("email").value;
+
+if(!name || !address || !email){
+alert("Please fill out all fields.");
+return;
+}
+
+alert("Order placed! Redirecting to secure payment...");
+window.open("https://buy.stripe.com/test_yourlinkhere","_blank");
+}
+</script>
+
 </body>
 </html>
