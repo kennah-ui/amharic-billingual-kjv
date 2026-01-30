@@ -1,43 +1,121 @@
-<div class="container">
-  <div class="card">
-    <img src="airpods_max.png" alt="AirPods Max"> <div class="card-content">
-      <h2>AirPods Max</h2>
-      <div class="price">$250</div>
-      <div class="stock">High-Fidelity Audio • Premium Build</div>
-      <div class="quantity">
-        <button onclick="changeQty('max',-1)">-</button>
-        <span id="qty-max">1</span>
-        <button onclick="changeQty('max',1)">+</button>
-      </div>
-      <button class="add" onclick="addToCart('AirPods Max', 250, 'qty-max')">Add to Cart</button>
-    </div>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Tech & Apparel</title>
+    <style>
+        :root { --apple-blue: #0071e3; --bg-gray: #f5f5f7; --card-shadow: 0 8px 30px rgba(0,0,0,0.05); }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg-gray); margin: 0; padding: 40px 20px; color: #1d1d1f; }
+        
+        /* Header & Search */
+        .header { text-align: center; margin-bottom: 50px; }
+        .search-bar { width: 100%; max-width: 500px; padding: 12px 20px; border-radius: 12px; border: 1px solid #d2d2d7; font-size: 16px; outline: none; }
 
-  <div class="card">
-    <img src="essentials_grey.png" alt="Essentials Hoodie"> <div class="card-content">
-      <h2>Essentials Hoodie</h2>
-      <div class="price">$40</div>
-      <select><option>S</option><option>M</option><option>L</option></select>
-      <div class="quantity">
-        <button onclick="changeQty('essentials',-1)">-</button>
-        <span id="qty-essentials">1</span>
-        <button onclick="changeQty('essentials',1)">+</button>
-      </div>
-      <button class="add" onclick="addToCart('Essentials Hoodie', 40, 'qty-essentials')">Add to Cart</button>
-    </div>
-  </div>
+        /* Product Grid */
+        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .card { background: white; border-radius: 20px; padding: 24px; box-shadow: var(--card-shadow); transition: transform 0.3s ease; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-8px); }
+        .card img { width: 100%; height: 250px; object-fit: contain; margin-bottom: 20px; border-radius: 12px; }
+        
+        /* Details & Buttons */
+        h2 { font-size: 1.4rem; margin: 0 0 8px 0; }
+        .price { font-size: 1.2rem; font-weight: 600; margin-bottom: 15px; }
+        .stock { font-size: 0.85rem; color: #86868b; margin-bottom: 20px; min-height: 40px; }
+        .size-link { color: var(--apple-blue); font-size: 12px; cursor: pointer; text-decoration: none; margin-bottom: 8px; display: block; }
+        select { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid #d2d2d7; margin-bottom: 20px; }
+        
+        .quantity { display: flex; align-items: center; justify-content: center; gap: 20px; margin-bottom: 20px; background: #f5f5f7; padding: 10px; border-radius: 12px; }
+        .quantity button { border: none; background: none; font-size: 18px; cursor: pointer; width: 30px; height: 30px; }
+        .add-btn { background: var(--apple-blue); color: white; border: none; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; width: 100%; }
 
-  <div class="card">
-    <img src="sp5der_green.png" alt="Sp5der Hoodie"> <div class="card-content">
-      <h2>Sp5der Hoodie</h2>
-      <div class="price">$150</div>
-      <select><option>S</option><option>M</option><option>L</option></select>
-      <div class="quantity">
-        <button onclick="changeQty('sp5der',-1)">-</button>
-        <span id="qty-sp5der">1</span>
-        <button onclick="changeQty('sp5der',1)">+</button>
-      </div>
-      <button class="add" onclick="addToCart('Sp5der Hoodie', 150, 'qty-sp5der')">Add to Cart</button>
+        /* Cart Sidebar & Payment Overlays */
+        .sidebar { position: fixed; top: 0; right: 0; width: 350px; height: 100%; background: white; box-shadow: -10px 0 30px rgba(0,0,0,0.1); transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; display: flex; flex-direction: column; }
+        .sidebar.open { transform: translateX(0); }
+        .overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(255,255,255,0.95); display:none; justify-content:center; align-items:flex-start; padding-top:100px; z-index: 2000; }
+        .done-btn { position: absolute; bottom: 40px; width: 85%; background: black; color: white; border: none; padding: 18px; border-radius: 30px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Tech & Essentials</h1>
+        <input type="text" class="search-bar" placeholder="Search products...">
     </div>
-  </div>
-</div>
+
+    <div class="container">
+        <div class="card">
+            <img src="airpodsmax.jpg" alt="AirPods Max">
+            <h2>AirPods Max</h2>
+            <div class="price">$250</div>
+            <div class="stock">High-Fidelity Audio • Premium Build</div>
+            <div class="quantity">
+                <button onclick="changeQty('max', -1)">-</button><span id="qty-max">1</span><button onclick="changeQty('max', 1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart('AirPods Max', 250, 'qty-max')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="sp5der.jpg" alt="Sp5der Hoodie">
+            <h2>Sp5der Hoodie</h2>
+            <div class="price">$150</div>
+            <span class="size-link" onclick="toggleSizeGuide()">View Size Guide</span>
+            <select><option>S</option><option>M</option><option>L</option></select>
+            <div class="quantity">
+                <button onclick="changeQty('sp5der', -1)">-</button><span id="qty-sp5der">1</span><button onclick="changeQty('sp5der', 1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart('Sp5der Hoodie', 150, 'qty-sp5der')">Add to Cart</button>
+        </div>
+
+        <div class="card">
+            <img src="essentials.jpg" alt="Essentials Hoodie">
+            <h2>Essentials Hoodie</h2>
+            <div class="price">$40</div>
+            <span class="size-link" onclick="toggleSizeGuide()">View Size Guide</span>
+            <select><option>S</option><option>M</option><option>L</option></select>
+            <div class="quantity">
+                <button onclick="changeQty('essentials', -1)">-</button><span id="qty-essentials">1</span><button onclick="changeQty('essentials', 1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart('Essentials Hoodie', 40, 'qty-essentials')">Add to Cart</button>
+        </div>
+    </div>
+
+    <div id="payment-screen" class="overlay">
+        <div style="width: 80%; max-width: 400px; position: relative;">
+            <button style="border:none; background:none; font-size:30px; cursor:pointer;" onclick="closePayment()">×</button>
+            <div style="background:#34d333; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-weight:bold; margin: 30px 0;">...</div>
+            <h1 id="payment-text" style="font-size: 2.2rem; line-height: 1.1;">You sent $0 to Kaiden Digiacomo</h1>
+            <button class="done-btn" onclick="closePayment()">Done</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+
+        function changeQty(id, delta) {
+            const el = document.getElementById('qty-' + id);
+            let val = parseInt(el.innerText) + delta;
+            el.innerText = val < 1 ? 1 : val;
+        }
+
+        function addToCart(name, price, qtyId) {
+            const quantity = parseInt(document.getElementById(qtyId).innerText);
+            cart.push({ name, price, quantity });
+            processPayment(); // Automatically triggers payment screen for this demo
+        }
+
+        function processPayment() {
+            let total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('payment-text').innerText = `You sent $${total} to Kaiden Digiacomo`;
+            document.getElementById('payment-screen').style.display = 'flex';
+        }
+
+        function closePayment() {
+            document.getElementById('payment-screen').style.display = 'none';
+            cart = [];
+        }
+        
+        function toggleSizeGuide() { alert("Size Guide: S (22in), M (24in), L (26in)"); }
+    </script>
+</body>
+</html>
