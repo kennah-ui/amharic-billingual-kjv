@@ -10,12 +10,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{
-background:#0e0e0e;
-color:white;
-}
+body{background:#0e0e0e;color:white;}
 
-/* HEADER */
 header{
 background:linear-gradient(90deg,#000,#111,#000);
 padding:25px;
@@ -26,7 +22,6 @@ letter-spacing:2px;
 border-bottom:1px solid #222;
 }
 
-/* PRODUCTS GRID */
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
@@ -44,7 +39,7 @@ border:1px solid #1f1f1f;
 
 .card:hover{
 transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(0,255,150,.2);
+box-shadow:0 20px 40px rgba(0,150,255,.25);
 }
 
 .card img{
@@ -53,17 +48,12 @@ height:260px;
 object-fit:cover;
 }
 
-.card-content{
-padding:20px;
-}
+.card-content{padding:20px;}
 
-.card h2{
-font-size:20px;
-margin-bottom:8px;
-}
+.card h2{font-size:20px;margin-bottom:8px;}
 
 .price{
-color:#00ff99;
+color:#3aa0ff;
 font-size:22px;
 font-weight:600;
 margin-bottom:5px;
@@ -75,7 +65,6 @@ color:#888;
 margin-bottom:12px;
 }
 
-/* SIZE DROPDOWN */
 select{
 width:100%;
 padding:8px;
@@ -86,7 +75,6 @@ border:1px solid #333;
 margin-bottom:10px;
 }
 
-/* QUANTITY */
 .quantity{
 display:flex;
 align-items:center;
@@ -97,43 +85,34 @@ margin-bottom:10px;
 width:30px;
 height:30px;
 border:none;
-background:#222;
+background:#1a1a1a;
 color:white;
 cursor:pointer;
 font-size:18px;
 }
 
-.quantity span{
-margin:0 10px;
-}
+.quantity span{margin:0 10px;}
 
-/* BUTTON */
 button.add{
 width:100%;
 padding:10px;
 border:none;
 border-radius:10px;
-background:linear-gradient(90deg,#00ff99,#00cc66);
+background:linear-gradient(90deg,#007bff,#00aaff);
 font-weight:600;
 cursor:pointer;
+color:white;
 transition:.3s;
 }
 
-button.add:hover{
-opacity:.8;
-}
+button.add:hover{opacity:.85;}
 
-/* CART */
-.cart{
+.cart,.checkout{
 background:#111;
 margin:30px;
 padding:25px;
 border-radius:20px;
 border:1px solid #222;
-}
-
-.cart h2{
-margin-bottom:15px;
 }
 
 .cart ul{
@@ -150,16 +129,7 @@ font-size:14px;
 .total{
 font-size:20px;
 font-weight:600;
-color:#00ff99;
-}
-
-/* CHECKOUT */
-.checkout{
-margin:30px;
-padding:25px;
-background:#111;
-border-radius:20px;
-border:1px solid #222;
+color:#3aa0ff;
 }
 
 .checkout input{
@@ -178,9 +148,10 @@ padding:12px;
 margin-top:10px;
 border:none;
 border-radius:12px;
-background:linear-gradient(90deg,#00ff99,#00cc66);
+background:linear-gradient(90deg,#007bff,#00aaff);
 font-weight:600;
 cursor:pointer;
+color:white;
 }
 
 footer{
@@ -200,12 +171,13 @@ margin-top:30px;
 
 <section class="products">
 
+<!-- AirPods -->
 <div class="card">
-<img src="https://i.imgur.com/8Qf6F7Y.png">
+<img src="https://images.unsplash.com/photo-1606220838315-056192d5e927" alt="AirPods">
 <div class="card-content">
 <h2>AirPods</h2>
 <div class="price">$40</div>
-<div class="stock">Premium Sound • Wireless</div>
+<div class="stock">Wireless • Premium Sound</div>
 
 <div class="quantity">
 <button onclick="changeQty('airpods',-1)">-</button>
@@ -217,8 +189,9 @@ margin-top:30px;
 </div>
 </div>
 
+<!-- AirPods Max -->
 <div class="card">
-<img src="https://i.imgur.com/3ZQ3Z9O.png">
+<img src="https://images.unsplash.com/photo-1583394838336-acd977736f90" alt="AirPods Max">
 <div class="card-content">
 <h2>AirPods Max</h2>
 <div class="price">$250</div>
@@ -231,6 +204,54 @@ margin-top:30px;
 </div>
 
 <button class="add" onclick="addToCart('AirPods Max',250,'qty-max')">Add to Cart</button>
+</div>
+</div>
+
+<!-- Essentials Hoodie -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1520975916090-3105956dac38" alt="Essentials Hoodie">
+<div class="card-content">
+<h2>Essentials Hoodie</h2>
+<div class="price">$40</div>
+
+<select>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<div class="quantity">
+<button onclick="changeQty('essentials',-1)">-</button>
+<span id="qty-essentials">1</span>
+<button onclick="changeQty('essentials',1)">+</button>
+</div>
+
+<button class="add" onclick="addToCart('Essentials Hoodie',40,'qty-essentials')">Add to Cart</button>
+</div>
+</div>
+
+<!-- Sp5der Hoodie -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7" alt="Sp5der Hoodie">
+<div class="card-content">
+<h2>Sp5der Hoodie</h2>
+<div class="price">$70</div>
+
+<select>
+<option>S</option>
+<option>M</option>
+<option>L</option>
+<option>XL</option>
+</select>
+
+<div class="quantity">
+<button onclick="changeQty('sp5der',-1)">-</button>
+<span id="qty-sp5der">1</span>
+<button onclick="changeQty('sp5der',1)">+</button>
+</div>
+
+<button class="add" onclick="addToCart('Sp5der Hoodie',70,'qty-sp5der')">Add to Cart</button>
 </div>
 </div>
 
@@ -258,30 +279,28 @@ Limited Stock • Secure Checkout • Fast Shipping
 let total = 0;
 
 function changeQty(id,change){
-let el = document.getElementById("qty-"+id);
-let qty = parseInt(el.innerText);
-qty += change;
-if(qty < 1) qty = 1;
-el.innerText = qty;
+let el=document.getElementById("qty-"+id);
+let qty=parseInt(el.innerText);
+qty+=change;
+if(qty<1)qty=1;
+el.innerText=qty;
 }
 
 function addToCart(item,price,qtyId){
-let qty = parseInt(document.getElementById(qtyId).innerText);
-let subtotal = price * qty;
-total += subtotal;
-
-document.getElementById("cart-items").innerHTML += 
+let qty=parseInt(document.getElementById(qtyId).innerText);
+let subtotal=price*qty;
+total+=subtotal;
+document.getElementById("cart-items").innerHTML+=
 "<li>"+item+" x"+qty+" - $"+subtotal+"</li>";
-
-document.getElementById("total").innerText = total;
+document.getElementById("total").innerText=total;
 }
 
 function checkout(){
-let name = document.getElementById("name").value;
-let address = document.getElementById("address").value;
-let email = document.getElementById("email").value;
+let name=document.getElementById("name").value;
+let address=document.getElementById("address").value;
+let email=document.getElementById("email").value;
 
-if(!name || !address || !email){
+if(!name||!address||!email){
 alert("Please fill out all fields.");
 return;
 }
